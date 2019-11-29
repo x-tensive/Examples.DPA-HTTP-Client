@@ -29,6 +29,9 @@ namespace DpaHttpClient
 
             // List of completed orders for last month and for specific equipment.
             var completedOrdersForLastMonth = Examples.GetCompletedOrdersForLastMonth(dpaClient);
+
+			// Adds ticket for dispatcher
+			Examples.AddTicket(dpaClient);
         }
     }
 }

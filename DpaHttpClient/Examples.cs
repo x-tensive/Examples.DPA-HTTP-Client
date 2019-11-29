@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace DpaHttpClient
 {
@@ -172,5 +173,14 @@ namespace DpaHttpClient
             var processingProgramRecordJson = dpaClient.GetOrders(filter);
             return JsonConvert.DeserializeObject<List<GridOrder>>(processingProgramRecordJson);
         }
+
+		/// <summary>
+		/// Method for adding ticket for dispatcher
+		/// </summary>
+		public static void AddTicket(DpaClient dpaClient)
+		{
+			var ticketService = new DpaTicketService(dpaClient);
+			ticketService.AddAwaitingForTransportTicket("Sahos Sprint");
+		}
     }
 }

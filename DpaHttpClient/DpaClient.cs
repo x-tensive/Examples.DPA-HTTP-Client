@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DpaHttpClient
 {
-    public class DpaClient
+    public class DpaClient: IDisposable
     {
         private CookieContainer CookieContainer { get; set; }
 
@@ -73,6 +73,16 @@ namespace DpaHttpClient
             var postParams = JsonConvert.SerializeObject(filter);
             var url = $"/api/Jobs/getJobDatas/";
             return Post(url, postParams);
+        }
+
+        protected virtual void Dispose(bool full)
+        {
+            Client.Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }
