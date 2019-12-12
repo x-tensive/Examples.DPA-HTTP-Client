@@ -177,10 +177,10 @@ namespace DpaHttpClient
 		/// <summary>
 		/// Method for adding ticket for dispatcher
 		/// </summary>
-		public static void AddTicket(DpaClient dpaClient)
+		public static void AddTicket(DpaClient dpaClient, string equipmentName)
 		{
 			var ticketService = new DpaTicketService(dpaClient);
-			ticketService.AddAwaitingForTransportTicket("Sahos Sprint");
+			ticketService.AddAwaitingForTransportTicket(equipmentName);
 		}
     }
 }
