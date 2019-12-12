@@ -7,7 +7,7 @@ namespace DpaHttpClient
         static void Main(string[] args)
         {
             // Authorized client.
-            var dpaClient = Examples.Login("login", "password", "http://localhost:6216");
+            var dpaClient = Examples.Login("login", "password", "http://localhost");
 
             // Equipment list.
             var equipments = Examples.GetEquipments(dpaClient);
@@ -31,7 +31,9 @@ namespace DpaHttpClient
             var completedOrdersForLastMonth = Examples.GetCompletedOrdersForLastMonth(dpaClient);
 
 			// Adds ticket for dispatcher
-			Examples.AddTicket(dpaClient);
+			if (equipments.Any()) {
+				Examples.AddTicket(dpaClient, equipments.FirstOrDefault().Name);
+			}
         }
     }
 }
