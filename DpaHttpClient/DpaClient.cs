@@ -75,6 +75,15 @@ namespace DpaHttpClient
             return Post(url, postParams);
         }
 
+        /// <summary>
+        /// Set a flag, that indicated than pervious job is completed, on a job with ExternalIdentifier = jobExternalIdentifier
+        /// </summary>
+        public void SetPreviousOperationCompleted(string jobExternalIdentifier, bool completed)
+        {
+            var url = $"/api/Jobs/setPreviousOperationCompleted/{jobExternalIdentifier}/{completed}";
+            Post(url, string.Empty);
+        }
+
         protected virtual void Dispose(bool full)
         {
             Client.Dispose();

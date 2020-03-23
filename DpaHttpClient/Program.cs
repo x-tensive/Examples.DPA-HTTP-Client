@@ -34,6 +34,8 @@ namespace DpaHttpClient
 			if (equipments.Any()) {
 				Examples.AddTicket(dpaClient, equipments.FirstOrDefault().Name);
 			}
+
+            dpaClient.SetPreviousOperationCompleted("1000016132436", true);
         }
     }
 }
