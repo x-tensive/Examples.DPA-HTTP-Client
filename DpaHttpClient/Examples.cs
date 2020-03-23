@@ -64,7 +64,8 @@ namespace DpaHttpClient
                 Skip = 0,
                 Take = 20,
             };
-            var gridOptions = new EventLogBaseGridFilter() {
+            var gridOptions = new EventLogBaseGridFilter()
+            {
                 GridOptions = filter,
                 DateTimeOffsetFrom = DateTimeOffset.Now.AddDays(-1),    // Beginning of period.
                 DateTimeOffsetUntil = DateTimeOffset.Now,               // End of period.
@@ -107,7 +108,7 @@ namespace DpaHttpClient
                 Skip = 0,
                 Take = 20,
             };
-           
+
             var processingProgramRecordJson = dpaClient.GetOrders(filter);
             return JsonConvert.DeserializeObject<List<GridOrder>>(processingProgramRecordJson);
         }
@@ -144,7 +145,7 @@ namespace DpaHttpClient
             var filter = new GridRequestOptions()
             {
                 Skip = 0,
-                Take = 20,                
+                Take = 20,
                 Filter = new object[]
                 {
                     new object[]
@@ -174,13 +175,18 @@ namespace DpaHttpClient
             return JsonConvert.DeserializeObject<List<GridOrder>>(processingProgramRecordJson);
         }
 
-		/// <summary>
-		/// Method for adding ticket for dispatcher
-		/// </summary>
-		public static void AddTicket(DpaClient dpaClient, string equipmentName)
-		{
-			var ticketService = new DpaTicketService(dpaClient);
-			ticketService.AddAwaitingForTransportTicket(equipmentName);
-		}
+        /// <summary>
+        /// Method for adding ticket for dispatcher
+        /// </summary>
+        public static void AddTicket(DpaClient dpaClient, string equipmentName)
+        {
+            var ticketService = new DpaTicketService(dpaClient);
+            ticketService.AddAwaitingForTransportTicket(equipmentName);
+        }
+
+        public static void SetPreviousOperationCompleted(DpaClient dpaClient, string jobExternalIdentifier, bool completed)
+        {
+            dpaClient.SetPreviousOperationCompleted(jobExternalIdentifier, completed);
+        }
     }
 }
