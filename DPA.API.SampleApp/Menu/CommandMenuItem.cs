@@ -9,7 +9,7 @@ namespace DPA.API.SampleApp
 	{
 		protected readonly CommandParameter[] parameters;
 
-		private MenuResult EnsureParametersAreValid(string[] parameterValues)
+		private ActionResult EnsureParametersAreValid(string[] parameterValues)
 		{
 			if (parameterValues.Length != parameters.Length)
 			{
@@ -35,11 +35,11 @@ namespace DPA.API.SampleApp
 			return OkMenuResult.Get();
 		}
 
-		protected abstract CommandResult InnerExecute(CommandParameter[] parameters, string[] values);
+		protected abstract ActionResult InnerExecute(CommandParameter[] parameters, string[] values);
 
 		public CommandParameter[] GetParameters() => parameters;
 
-		public MenuResult Execute(string[] parameterValues)
+		public ActionResult Execute(string[] parameterValues)
 		{
 			var result = EnsureParametersAreValid(parameterValues);
 			if (!result.IsOK)
@@ -62,9 +62,10 @@ namespace DPA.API.SampleApp
 	{
 		private readonly Func<CommandParameter[], string[], T> command;
 
-		protected override CommandResult InnerExecute(CommandParameter[] parameters, string[] parameterValues)
+		protected override ActionResult InnerExecute(CommandParameter[] parameters, string[] parameterValues)
 		{
-			return new CommandResult(command(parameters, parameterValues));
+			try { return new CommandResult(command(parameters, parameterValues)); }
+			catch(Exception ex) { return FailResult.Get(ex.Message); }
 		}
 
 		public override MenuItem Clone()
@@ -84,13 +85,13 @@ namespace DPA.API.SampleApp
 			this.command = command;
 		}
 
-		public CommandMenuItem(string name, Func<CommandParameter[], string[], T> command, CommandParameter[] parameters)
+		public CommandMenuItem(string name, Func<CommandParameter[], string[], T> command, params CommandParameter[] parameters)
 			: base(name, null, parameters)
 		{
 			this.command = command;
 		}
 
-		public CommandMenuItem(string name, MenuItem owner, Func<CommandParameter[], string[], T> command, CommandParameter[] parameters)
+		public CommandMenuItem(string name, MenuItem owner, Func<CommandParameter[], string[], T> command, params CommandParameter[] parameters)
 			: base(name, owner, parameters)
 		{
 			this.command = command;

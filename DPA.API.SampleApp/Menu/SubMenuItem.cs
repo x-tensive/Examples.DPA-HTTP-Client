@@ -5,7 +5,7 @@ namespace DPA.API.SampleApp
 {
 	public class SubMenuItem : MenuItem
 	{
-		public MenuResult NavigateTo(MenuItem menuItem)
+		public ActionResult NavigateTo(MenuItem menuItem)
 		{
 			if (Items.Contains(menuItem))
 			{

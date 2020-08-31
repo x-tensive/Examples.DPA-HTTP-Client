@@ -5,14 +5,14 @@ using System.Text;
 
 namespace DPA.API.SampleApp
 {
-	public abstract class MenuResult
+	public abstract class ActionResult
 	{
 		public abstract bool IsOK { get; }
 
 		public abstract string Message { get; }
 	}
 
-	public class OkMenuResult : MenuResult
+	public class OkMenuResult : ActionResult
 	{
 		private static readonly OkMenuResult instance = new OkMenuResult();
 
@@ -27,7 +27,7 @@ namespace DPA.API.SampleApp
 		}
 	}
 
-	public class FailResult : MenuResult
+	public class FailResult : ActionResult
 	{
 		private readonly string errorMessage;
 

@@ -1,6 +1,7 @@
 ﻿using DpaHttpClient;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,7 +52,7 @@ namespace DPA.API.SampleApp
 			}
 		}
 
-		private MenuResult TrySelectMenuItem()
+		private ActionResult TrySelectMenuItem()
 		{
 			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Magenta;
@@ -69,7 +70,7 @@ namespace DPA.API.SampleApp
 			return currentMenu.SelectMenuItem(selectedItem);
 		}
 
-		private void ShowResult(MenuResult selecteionResult)
+		private void ShowResult(ActionResult selecteionResult)
 		{
 			Console.WriteLine();
 			switch (selecteionResult)
@@ -77,8 +78,19 @@ namespace DPA.API.SampleApp
 				case CommandResult cmdResult:
 					Console.ForegroundColor = ConsoleColor.Green;
 					Console.WriteLine("Operation result is:");
-					var resultJson = JsonConvert.SerializeObject(cmdResult.Result);
-					Console.WriteLine(resultJson);
+					//var resultJson = JsonConvert.SerializeObject(cmdResult.Result);
+					var resultList = (cmdResult.Result as IEnumerable)?.Cast<object>()?.ToList();
+					if (resultList != null)
+					{
+						foreach (var item in resultList)
+						{
+							Console.WriteLine(item);
+						}
+					}
+					else
+					{
+						Console.WriteLine(cmdResult.Result);
+					}
 					break;
 				case FailResult failResult:
 					Console.ForegroundColor = ConsoleColor.Red;

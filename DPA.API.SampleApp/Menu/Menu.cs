@@ -58,7 +58,7 @@ namespace DPA.API.SampleApp
 			}
 		}
 
-		public MenuResult SelectMenuItem(MenuItem menuItem)
+		public ActionResult SelectMenuItem(MenuItem menuItem)
 		{
 			var errorMessage = string.Empty;
 			if (!GetCurrentItems().Contains(menuItem))

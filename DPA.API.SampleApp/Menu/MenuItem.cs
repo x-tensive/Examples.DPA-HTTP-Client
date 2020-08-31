@@ -41,7 +41,11 @@ namespace DPA.API.SampleApp
 		{
 			Name = name;
 			Owner = owner;
-			this.items.AddRange(items ?? Array.Empty<MenuItem>());
+			items = items ?? Array.Empty<MenuItem>();
+			foreach (var item in items)
+			{
+				AddItem(item);
+			}
 		}
 
 		protected MenuItem(string name)
