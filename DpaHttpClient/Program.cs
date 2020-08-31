@@ -7,7 +7,7 @@ namespace DpaHttpClient
         static void Main(string[] args)
         {
             // Authorized client.
-            var dpaClient = Examples.Login("login", "password", "http://localhost");
+            var dpaClient = Examples.Login("admin", "admin", "http://dpadev");
 
             // Equipment list.
             var equipments = Examples.GetEquipments(dpaClient);
