@@ -6,12 +6,6 @@ namespace DpaHttpClient
 {
 	public class DpaTicketService
 	{
-		private class IdNameContainer
-		{
-			public long Id { get; set; }
-			public string Name { get; set; }
-		}
-
 		private const string AWAITING_FOR_TRANSPORT_TICKET_NAME_RUS = "Жду транспорта";
 		private const string AWAITING_FOR_TRANSPORT_TICKET_NAME_ENG = "Waiting for transport";
 		private const string COMMENTARY = "From MES";
@@ -32,11 +26,6 @@ namespace DpaHttpClient
 				Comment = COMMENTARY
 			});
 			client.Post(url, postParams);
-		}
-
-		private Exception NotFoundException(string entity, string name)
-		{
-			return new Exception($"{entity} does not found by name {name}");
 		}
 
 		public bool TryGetTicketByName(string ticketName, out long id)
@@ -69,11 +58,11 @@ namespace DpaHttpClient
 			var result = client.Post(url, postParams);
 
 			if (string.IsNullOrEmpty(result))
-				throw NotFoundException("Equipment", equipmentName);
+				throw Examples.NotFoundException("Equipment", equipmentName);
 
 			var resultObject = JsonConvert.DeserializeObject<IdNameContainer[]>(result);
 			if (resultObject.Length == 0)
-				throw NotFoundException("Equipment", equipmentName);
+				throw Examples.NotFoundException("Equipment", equipmentName);
 
 			return resultObject[0].Id;
 		}
@@ -85,7 +74,7 @@ namespace DpaHttpClient
 			{
 				if (!TryGetTicketByName(AWAITING_FOR_TRANSPORT_TICKET_NAME_ENG, out ticketId))
 				{
-					throw NotFoundException("Ticket", AWAITING_FOR_TRANSPORT_TICKET_NAME_RUS);
+					throw Examples.NotFoundException("Ticket", AWAITING_FOR_TRANSPORT_TICKET_NAME_RUS);
 				}
 			}
 

@@ -2,12 +2,18 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 
 namespace DpaHttpClient
 {
     public static class Examples
     {
+        public static Exception NotFoundException(string entity, string name)
+        {
+            return new Exception($"{entity} does not found by name '{name}'");
+        }
+
         /// <summary>
         /// Login.
         /// Cookies are stored in dpaClient.
@@ -29,8 +35,38 @@ namespace DpaHttpClient
         /// <returns>Returns a collection of equipment</returns>
         public static IEnumerable<Equipment> GetEquipments(DpaClient dpaClient)
         {
-            var equipmentsJson = dpaClient.Get($"/api/Agent/getEquipments");
-            return JsonConvert.DeserializeObject<IEnumerable<Equipment>>(equipmentsJson);
+            var filter = new GridRequestOptions();
+
+            var url = "/api/dpaEnterpriseStrusture/getEquipments/";
+
+            var postParams = JsonConvert.SerializeObject(filter);
+            var postResult = dpaClient.Post(url, postParams);
+            return JsonConvert.DeserializeObject<IEnumerable<Equipment>>(postResult);
+        }
+        
+        public static long GetEquipmentByName(DpaClient dpaClient, string equipmentName)
+        {
+            var filter = new GridRequestOptions()
+            {
+                Filter = new[] {
+                    "Name",
+                    "contains",
+                    equipmentName
+                }
+            };
+            var url = "/api/dpaEnterpriseStrusture/getEquipments/";
+
+            var postParams = JsonConvert.SerializeObject(filter);
+            var result = dpaClient.Post(url, postParams);
+
+            if (string.IsNullOrEmpty(result))
+                throw NotFoundException("Equipment", equipmentName);
+
+            var resultObject = JsonConvert.DeserializeObject<IdNameContainer[]>(result);
+            if (resultObject.Length == 0)
+                throw NotFoundException("Equipment", equipmentName);
+
+            return resultObject[0].Id;
         }
 
         /// <summary>
@@ -140,7 +176,7 @@ namespace DpaHttpClient
         /// <summary>
         /// Method for obtaining the list of completed tasks for the last month for a specific equipment.
         /// </summary>
-        public static IEnumerable<GridOrder> GetCompletedOrdersForLastMonth(DpaClient dpaClient)
+        public static IEnumerable<GridOrder> GetCompletedOrdersForLastMonthByEquipment(DpaClient dpaClient, string equipmentName)
         {
             var filter = new GridRequestOptions()
             {
@@ -166,7 +202,7 @@ namespace DpaHttpClient
                     {
                         nameof(GridOrder.Equipment),
                         "contains",
-                        "Equipment 1" // Name of the equipment.
+                        equipmentName // Name of the equipment.
                     },
                 }
             };
@@ -182,6 +218,18 @@ namespace DpaHttpClient
         {
             var ticketService = new DpaTicketService(dpaClient);
             ticketService.AddAwaitingForTransportTicket(equipmentName);
+        }
+
+        public static IndicatorPoint[] GetIndicatorValues(DpaClient client, string equipmentName, string indicatorName, DateTimeOffset start, DateTimeOffset end)
+        {
+            var indicatorService = new DpaIndicatorService(client);
+            return indicatorService.GetIndicatorValues(equipmentName, indicatorName, start, end);
+        }
+
+        public static IdNameContainer[] GetIndicatorList(DpaClient client, string equipmentName)
+        {
+            var indicatorService = new DpaIndicatorService(client);
+            return indicatorService.GetIndicatorList(equipmentName);
         }
 
         public static void SetPreviousOperationCompleted(DpaClient dpaClient, string jobExternalIdentifier, bool completed)
