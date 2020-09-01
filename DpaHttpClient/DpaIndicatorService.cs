@@ -30,7 +30,7 @@ namespace DpaHttpClient
 		{
 			var url = "/api/dashboard/getIndicators";
 
-			var equipmentId = Examples.GetEquipmentByName(dpaClient, equipmentName);
+			var equipmentId = Examples.GetEquipmentIdByName(dpaClient, equipmentName);
 
 			var equipmentIdListParam = new List<long>() { equipmentId };
 			var postParams = JsonConvert.SerializeObject(equipmentIdListParam);

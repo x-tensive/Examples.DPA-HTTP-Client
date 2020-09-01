@@ -27,7 +27,7 @@ namespace DPA.API.SampleApp
 			menuRoot.AddItem(new CommandMenuItem<IEnumerable<Equipment>>("Get workcenters list", () => { return Examples.GetEquipments(menuExplorer.Client); }));
 			menuRoot.AddItem(new CommandMenuItem<string, IEnumerable<Downtime>>("Get downtime for workcenter by last day", (equipmentName) =>
 			{
-				var equipmentId = Examples.GetEquipmentByName(menuExplorer.Client, equipmentName);
+				var equipmentId = Examples.GetEquipmentIdByName(menuExplorer.Client, equipmentName);
 				return Examples.GetDowntimes(menuExplorer.Client, equipmentId, false, FilterPeriodType.LastNDays);
 			}, new CommandParameter<string>("Workcenter name")));
 

@@ -43,8 +43,15 @@ namespace DpaHttpClient
             var postResult = dpaClient.Post(url, postParams);
             return JsonConvert.DeserializeObject<IEnumerable<Equipment>>(postResult);
         }
-        
-        public static long GetEquipmentByName(DpaClient dpaClient, string equipmentName)
+
+
+        /// <summary>
+        /// Returns workcenter id by workcenter name
+        /// </summary>
+        /// <param name="dpaClient">Authorized client</param>
+        /// <param name="equipmentName">Workcenter name</param>
+        /// <returns></returns>
+        public static long GetEquipmentIdByName(DpaClient dpaClient, string equipmentName)
         {
             var filter = new GridRequestOptions()
             {
@@ -220,12 +227,27 @@ namespace DpaHttpClient
             ticketService.AddAwaitingForTransportTicket(equipmentName);
         }
 
+        /// <summary>
+        /// Returns collection of indicator values by period
+        /// </summary>
+        /// <param name="client">Authorized client</param>
+        /// <param name="equipmentName">Workcenter name</param>
+        /// <param name="indicatorName">Indicator name</param>
+        /// <param name="start">Period start</param>
+        /// <param name="end">Period end</param>
+        /// <returns></returns>
         public static IndicatorPoint[] GetIndicatorValues(DpaClient client, string equipmentName, string indicatorName, DateTimeOffset start, DateTimeOffset end)
         {
             var indicatorService = new DpaIndicatorService(client);
             return indicatorService.GetIndicatorValues(equipmentName, indicatorName, start, end);
         }
 
+        /// <summary>
+        /// Returns collection of indicators by workcenter
+        /// </summary>
+        /// <param name="client">Authorized client</param>
+        /// <param name="equipmentName">Workcenter name</param>
+        /// <returns></returns>
         public static IdNameContainer[] GetIndicatorList(DpaClient client, string equipmentName)
         {
             var indicatorService = new DpaIndicatorService(client);
