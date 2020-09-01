@@ -8,13 +8,9 @@ namespace DPA.API.SampleApp
 {
 	public static class AuthMenuBuilder
 	{
-		public static DpaClient LogIn(CommandParameter[] parameters, object[] values)
+		public static DpaClient LogIn(string serverAddress, string userName, string password)
 		{
-			string baseAddress = values[0].ToString();
-			string userName = values[1].ToString();
-			string password = values[2].ToString();
-
-			var client = new DpaClient(baseAddress);
+			var client = new DpaClient(serverAddress);
 			if (!client.Login(userName, password))
 			{
 				client = null;

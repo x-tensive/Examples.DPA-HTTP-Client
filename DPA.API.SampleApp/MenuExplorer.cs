@@ -117,15 +117,14 @@ namespace DPA.API.SampleApp
 
 		public MenuExplorer(Menu menu)
 		{
-			logInMenuItem = new CommandMenuItem<bool>("Log in", (p, v) => { dpaClient = AuthMenuBuilder.LogIn(p, v); return dpaClient != null; }, new[] {
-				new CommandParameter ("server", CommandParameterType.String),
-				new CommandParameter ("user", CommandParameterType.String),
-				new CommandParameter ("password", CommandParameterType.String)
-			});
-			logOutMenuItem = new CommandMenuItem<bool>("Log out", (p, v) => { dpaClient = null; return true; });
-			exitMenuItem = new CommandMenuItem<bool>("Exit", (p, v) => { Environment.Exit(-1); return true; });
-			mainMenuMenuItem = new CommandMenuItem<bool>("To main menu", (p, v) => { mainMenu.NavigateToMainMenu(); return true; });
-			levelUpMenuItem = new CommandMenuItem<bool>("Level up", (p, v) => { mainMenu.NavigateToLevelUp(); return true; });
+			logInMenuItem = new CommandMenuItem<string, string, string, bool>("Log in", (server, user, password) => { dpaClient = AuthMenuBuilder.LogIn(server, user, password); return dpaClient != null; },
+				new CommandParameter<string>("server"),
+				new CommandParameter<string> ("user"),
+				new CommandParameter<string> ("password"));
+			logOutMenuItem = new CommandMenuItem<bool>("Log out", () => { dpaClient = null; return true; });
+			exitMenuItem = new CommandMenuItem<bool>("Exit", () => { Environment.Exit(-1); return true; });
+			mainMenuMenuItem = new CommandMenuItem<bool>("To main menu", () => { mainMenu.NavigateToMainMenu(); return true; });
+			levelUpMenuItem = new CommandMenuItem<bool>("Level up", () => { mainMenu.NavigateToLevelUp(); return true; });
 
 			loginMenu = new Menu(new SubMenuItem("root", new[] { logInMenuItem }));
 			loginMenu.Extend(exitMenuItem);

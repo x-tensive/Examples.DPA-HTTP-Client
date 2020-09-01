@@ -27,7 +27,7 @@ namespace DPA.API.SampleApp
 			{
 				var prm = cmdParams[ix];
 				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.Write($"	{prm.Name} ({prm.Type}): ");
+				Console.Write($"	{prm.Name} ({prm.GetValueType()}): ");
 				Console.ResetColor();
 				values[ix] = Console.ReadLine();
 			}
