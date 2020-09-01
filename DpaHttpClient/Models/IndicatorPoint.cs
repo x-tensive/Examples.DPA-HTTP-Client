@@ -14,7 +14,7 @@ namespace DpaHttpClient
 
 		public override string ToString()
 		{
-			return $"{Time}: Text";
+			return $"[{Time}]: {Text}";
 		}
 	}
 
