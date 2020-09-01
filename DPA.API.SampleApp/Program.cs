@@ -10,7 +10,7 @@ namespace DPA.API.SampleApp
 	{
 		static void Main(string[] args)
 		{
-			Console.InputEncoding = Encoding.ASCII;
+			Console.InputEncoding = Encoding.Unicode;
 
 			var menuExplorer = BuildMenu();
 			menuExplorer.Run();
