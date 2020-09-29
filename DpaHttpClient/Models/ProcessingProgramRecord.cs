@@ -17,5 +17,10 @@ namespace DpaHttpClient
         public TimeSpan? MachineTime { get; set; }
         public MachineProgramStatus? FinalStatus { get; set; }
         public TimeSpan? AssessmentTime { get; set; }
-    }
+
+		public override string ToString()
+		{
+            return $"{EquipmentName} ({MainProgram}) {StartDate} - {EndDate}; MachineTime: {MachineTime}; TotalTime: {TotalTime}";
+        }
+	}
 }

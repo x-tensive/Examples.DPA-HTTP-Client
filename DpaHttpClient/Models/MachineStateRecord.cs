@@ -13,5 +13,10 @@ namespace DpaHttpClient
         public DateTimeOffset? EndDate { get; set; }
         public DateTimeOffset CreateOn { get; set; }
         public string EquipmentName { get; set; }
-    }
+
+		public override string ToString()
+		{
+			return $"{EquipmentName} ({Type}) {StartDate} - {EndDate}";
+		}
+	}
 }

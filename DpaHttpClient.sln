@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DpaHttpClient", "DpaHttpClient\DpaHttpClient.csproj", "{BB3F5EAD-D91E-4627-9990-5A1FFC4BA458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DpaHttpClient.Tests", "DpaHttpClient.Tests\DpaHttpClient.Tests.csproj", "{4AACE326-271D-48A4-ACE2-6A446AF9CF86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DpaHttpClient.Tests", "DpaHttpClient.Tests\DpaHttpClient.Tests.csproj", "{4AACE326-271D-48A4-ACE2-6A446AF9CF86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPA.API.SampleApp", "DPA.API.SampleApp\DPA.API.SampleApp.csproj", "{404E10ED-EAA7-4762-A723-8DE20D6D6C5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4AACE326-271D-48A4-ACE2-6A446AF9CF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AACE326-271D-48A4-ACE2-6A446AF9CF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AACE326-271D-48A4-ACE2-6A446AF9CF86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404E10ED-EAA7-4762-A723-8DE20D6D6C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404E10ED-EAA7-4762-A723-8DE20D6D6C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404E10ED-EAA7-4762-A723-8DE20D6D6C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404E10ED-EAA7-4762-A723-8DE20D6D6C5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

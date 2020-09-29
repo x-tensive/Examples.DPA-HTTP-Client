@@ -37,7 +37,7 @@ namespace DpaHttpClient
             ViewResult("Список выполненных заданий", completedOrders);
 
             // List of completed orders for last month and for specific equipment.
-            var completedOrdersForLastMonth = Examples.GetCompletedOrdersForLastMonth(dpaClient);
+            var completedOrdersForLastMonth = Examples.GetCompletedOrdersForLastMonthByEquipment(dpaClient, "Equipment 1");
             ViewResult("Список выполненных заданий за последний месяц", completedOrdersForLastMonth);
 
             // Adds ticket for dispatcher

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace DpaHttpClient
 {
@@ -21,5 +22,21 @@ namespace DpaHttpClient
             public DateTimeOffset? ActualStart { get; set; }
             public DateTimeOffset? ActualEnd { get; set; }
             public JobStatus Status { get; set; }
-    }
+
+		public override string ToString()
+		{
+            var b = new StringBuilder();
+            b.Append($"{Id}. {Order} -{ProductionTypeName} ({Status})");
+            if (!string.IsNullOrWhiteSpace(ProductName))
+                b.Append($"; Product: {ProductName}");
+            if (!string.IsNullOrWhiteSpace(Technology))
+                b.Append($"; Technology: {Technology}");
+            if (PlannedStart.HasValue)
+                b.AppendLine($" Scheduled for '{Equipment}' ({PlannedStart} - {PlannedEnd}); Quantity: {PlannedCount}");
+            if (ActualStart.HasValue)
+                b.AppendLine($" Actual: {ActualStart} - {ActualEnd}; Quantity: {ActualCount}; rejected: {RejectedCount}");
+
+            return b.ToString();
+		}
+	}
 }

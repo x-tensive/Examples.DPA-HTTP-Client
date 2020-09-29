@@ -13,5 +13,10 @@ namespace DpaHttpClient
         public DateTimeOffset? EndDate { get; set; }
         public DateTimeOffset TimeStamp { get; set; }
         public string OperatorComment { get; set; }
-    }
+
+		public override string ToString()
+		{
+			return $"Id: {Id}; Reason: {Reason.Name} ({StartDate} - {EndDate}); Comment: {OperatorComment}";
+		}
+	}
 }
