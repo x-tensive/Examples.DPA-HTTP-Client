@@ -27,7 +27,7 @@ namespace DpaHttpClient
         /// <summary>
         /// User login. Cookies are automatically stored in the client.
         /// </summary>
-        public void Login(string userName, string password)
+        public bool Login(string userName, string password)
         {
             string payload = JsonConvert.SerializeObject(new
             {
@@ -38,6 +38,7 @@ namespace DpaHttpClient
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = Client.PostAsync("/api/Account/Login", content).Result;
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public string Get(string url)
